@@ -77,7 +77,8 @@ var InchSwapApi = /** @class */ (function () {
     /**
      * @param chainId - while the transaction signature process uses the chain ID. (eth - 1 | bsc - 56)
     */
-    function InchSwapApi(chainId, apikey) {
+    function InchSwapApi(chainId, apikey, params) {
+        if (params === void 0) { params = { domain: 'https://api.1inch.dev' }; }
         var _this = this;
         /**
          * @returns Always returns code 200 if API is stable
@@ -236,7 +237,7 @@ var InchSwapApi = /** @class */ (function () {
             if (isNaN(Number(chainId)))
                 throw new Error('Invlid chainId');
             _this._chainId = Number(chainId);
-            _this._baseUrl = "https://api.1inch.dev/v5.2/".concat(_this._chainId);
+            _this._baseUrl = "".concat(_this._domain, "/swap/v5.2/").concat(_this._chainId);
         };
         this.setApikey = function (newApikey) {
             _this._apikey = newApikey;
@@ -245,7 +246,8 @@ var InchSwapApi = /** @class */ (function () {
             throw new Error('Invlid chainId');
         this._apikey = apikey || "";
         this._chainId = Number(chainId);
-        this._baseUrl = "https://api.1inch.dev/swap/v5.2/".concat(this._chainId);
+        this._domain = params.domain;
+        this._baseUrl = "".concat(this._domain, "/swap/v5.2/").concat(this._chainId);
     }
     InchSwapApi.prototype.authenticate = function () {
         return {

@@ -30,6 +30,7 @@ export class InchSwapApi {
 	private _chainId: number;
 	private _apikey: string;
 	private _baseUrl: string;
+	private _domain: string;
 
 	/**
 	 * @returns Always returns code 200 if API is stable
@@ -203,7 +204,7 @@ export class InchSwapApi {
 		if (isNaN(Number(chainId))) throw new Error('Invlid chainId');
 		
 		this._chainId = Number(chainId);
-		this._baseUrl = `https://api.1inch.dev/v5.2/${this._chainId}`;
+		this._baseUrl = `${this._domain}/swap/v5.2/${this._chainId}`;
 	}
 
 	setApikey = (newApikey: string) => {
@@ -220,12 +221,13 @@ export class InchSwapApi {
 	/**
 	 * @param chainId - while the transaction signature process uses the chain ID. (eth - 1 | bsc - 56)
 	*/
-	constructor(chainId: number | string, apikey?: string) {
+	constructor(chainId: number | string, apikey?: string, params: { domain: string }={ domain: 'https://api.1inch.dev' }) {
 		if (isNaN(Number(chainId))) throw new Error('Invlid chainId');
 
 		this._apikey = apikey || "";
 		this._chainId = Number(chainId);
-		this._baseUrl = `https://api.1inch.dev/swap/v5.2/${this._chainId}`;
+		this._domain = params.domain;
+		this._baseUrl = `${this._domain}/swap/v5.2/${this._chainId}`;
 	}
 };
 

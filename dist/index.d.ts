@@ -43,6 +43,7 @@ export declare class InchSwapApi {
     private _chainId;
     private _apikey;
     private _baseUrl;
+    private _domain;
     /**
      * @returns Always returns code 200 if API is stable
     */
@@ -161,6 +162,8 @@ export declare class InchSwapApi {
     /**
      * @param chainId - while the transaction signature process uses the chain ID. (eth - 1 | bsc - 56)
     */
-    constructor(chainId: number | string, apikey?: string);
+    constructor(chainId: number | string, apikey?: string, params?: {
+        domain: string;
+    });
 }
 export default InchSwapApi;
